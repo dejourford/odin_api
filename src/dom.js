@@ -47,7 +47,7 @@ export function renderWeather(dataToDisplay) {
         img.alt = `${dataToDisplay.days[i].description}`;
 
         const temperatureText = document.createElement("p");
-        temperatureText.textContent = Math.round(dataToDisplay.days[i].temp)
+        temperatureText.textContent = Math.round(dataToDisplay.days[i].tempmax)
 
         forecastGroup.append(img, temperatureText)
         forecastItem.append(forecastItemTitle, forecastGroup);
@@ -85,7 +85,7 @@ export function renderWeather(dataToDisplay) {
 
     // create card text
     const cardText = document.createElement("p");
-    cardText.textContent = Math.round(dataToDisplay.days[0].temp)
+    cardText.textContent = Math.round(dataToDisplay.days[0].tempmax)
 
     cardBottom.append(cardImg, cardText);
 
