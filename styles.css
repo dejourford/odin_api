@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Page Title */
+h1 {
+    text-align: center;
+}
+
+/* Search Input */
+.search-input-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.search-input-wrapper input,
+#search-button {
+    padding: 0.2rem;
+}
+
+#search-button {
+    cursor: pointer;
+}
