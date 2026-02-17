@@ -1,18 +1,17 @@
-// listener for sumbit button
-const searchButton = document.querySelector("#search-button")
-searchButton.addEventListener("click", () => {
-    console.log("search button clicked")
-})
+import { fetchWeather } from "./src/api.js";
+import { renderWeather } from "./src/dom.js";
 
 // listener for form
-let query;
 const form = document.querySelector("form");
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
    e.preventDefault();
     console.log("form submit")
 
     // get query from input value
     const formData = new FormData(form);
-    query = formData.get("search");
+    const query = formData.get("search");
     console.log(query)
+
+    const dataToDisplay = await fetchWeather(query)
+    renderWeather(dataToDisplay);
 })
