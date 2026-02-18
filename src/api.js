@@ -16,7 +16,6 @@ export async function fetchWeather(location) {
             currentConditions: data.currentConditions,
             days: data.days,
             description: data.description,
-            tempC: Math.round(data.days.tempmax + 100)
         }
     } catch (error) {
         console.error("API Error:", error);
