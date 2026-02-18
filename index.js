@@ -13,5 +13,5 @@ form.addEventListener("submit", async (e) => {
     console.log(query)
 
     const dataToDisplay = await fetchWeather(query)
-    renderWeather(dataToDisplay);
+    renderWeather(dataToDisplay, "F");
 })

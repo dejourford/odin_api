@@ -1,5 +1,5 @@
 // function to render the weather
-export function renderWeather(dataToDisplay) {
+export function renderWeather(dataToDisplay, unit = "C") {
     console.log(dataToDisplay)
 
 
@@ -14,7 +14,7 @@ export function renderWeather(dataToDisplay) {
 
     // create card title using query name
     const cardTitle = document.createElement("h2")
-    
+
     const city = dataToDisplay.address
     cardTitle.textContent = city.charAt(0).toUpperCase() + city.slice(1);
 
@@ -46,8 +46,11 @@ export function renderWeather(dataToDisplay) {
         img.src = "Test";
         img.alt = `${dataToDisplay.days[i].description}`;
 
+        const rawTemp = dataToDisplay.days[i].tempmax;
+        const temperature = unit === "C" ? Math.round((rawTemp *9) / 5 + 32) : Math.round(rawTemp);
+
         const temperatureText = document.createElement("p");
-        temperatureText.textContent = Math.round(dataToDisplay.days[i].tempmax)
+        temperatureText.textContent = `${temperature}°${unit}`;
 
         forecastGroup.append(img, temperatureText)
         forecastItem.append(forecastItemTitle, forecastGroup);
@@ -62,13 +65,21 @@ export function renderWeather(dataToDisplay) {
 
     // create card buttons
     const farenheitButton = document.createElement("button");
-    farenheitButton.id = "#farenheit"
+    farenheitButton.id = "farenheit"
     farenheitButton.textContent = "F";
+    farenheitButton.addEventListener("click", () => {
+        if (unit === "F") return;
+        renderWeather(dataToDisplay, "F")
+    }) 
 
 
     const celsiusButton = document.createElement("button");
-    celsiusButton.id = "#celsius"
+    celsiusButton.id = "celsius"
     celsiusButton.textContent = "C";
+    celsiusButton.addEventListener("click", () => {
+        if (unit === "C") return;
+        renderWeather(dataToDisplay, "C")
+    }) 
 
     cardButtonsContainer.append(farenheitButton, celsiusButton);
 
@@ -85,7 +96,7 @@ export function renderWeather(dataToDisplay) {
 
     // create card text
     const cardText = document.createElement("p");
-    cardText.textContent = Math.round(dataToDisplay.days[0].tempmax)
+    cardText.textContent = unit === "F" ? Math.round(dataToDisplay.days[0].tempmax) + `°${unit}` : Math.round((dataToDisplay.days[0].tempmax *9) / 5 + 32) + `°${unit}`
 
     cardBottom.append(cardImg, cardText);
 
@@ -93,3 +104,5 @@ export function renderWeather(dataToDisplay) {
     card.append(cardTitle, cardTop, cardBottom);
     weatherContainer.append(card);
 }
+
+
