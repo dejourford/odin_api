@@ -58,6 +58,7 @@ h1 {
 
 .forecast {
     display: flex;
+    flex-direction: column;
     gap: 0.5rem;
 }
 
@@ -86,10 +87,27 @@ h1 {
     cursor: pointer;
 }
 
+.temperature-buttons button.active {
+    background: lightblue;
+
+}
+
 /* Media Queries */
+@media screen and (min-width: 600px) {
+    /* forecast item */
+    .forecast {
+        flex-direction: row;
+    }
+
+}
+
 @media screen and (min-width: 769px) {
 
     /* forecast item */
+    .forecast {
+        flex-direction: row;
+    }
+
     .forecast .forecast-item:nth-child(n + 4) {
         display: unset;
     }

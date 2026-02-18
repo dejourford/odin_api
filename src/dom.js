@@ -2,6 +2,14 @@
 export function renderWeather(dataToDisplay, unit = "C") {
     console.log(dataToDisplay)
 
+    function removeActiveClass() {
+        const toggleButtons = document.querySelectorAll(".temperature-buttons button");
+        toggleButtons.forEach((button) => {
+            if (button.classList.contains("active")) {
+                button.classList.remove("active");
+            }
+        })
+    }
 
     // clear dom before appending new items
     const weatherContainer = document.querySelector(".weather-container");
@@ -47,7 +55,7 @@ export function renderWeather(dataToDisplay, unit = "C") {
         img.alt = `${dataToDisplay.days[i].description}`;
 
         const rawTemp = dataToDisplay.days[i].tempmax;
-        const temperature = unit === "C" ? Math.round((rawTemp *9) / 5 + 32) : Math.round(rawTemp);
+        const temperature = unit === "C" ? Math.round((rawTemp * 9) / 5 + 32) : Math.round(rawTemp);
 
         const temperatureText = document.createElement("p");
         temperatureText.textContent = `${temperature}°${unit}`;
@@ -65,21 +73,29 @@ export function renderWeather(dataToDisplay, unit = "C") {
 
     // create card buttons
     const farenheitButton = document.createElement("button");
+    if (unit === "F") {
+        farenheitButton.classList.add("active");
+    }
     farenheitButton.id = "farenheit"
     farenheitButton.textContent = "F";
     farenheitButton.addEventListener("click", () => {
         if (unit === "F") return;
+        removeActiveClass();
         renderWeather(dataToDisplay, "F")
-    }) 
+    })
 
 
     const celsiusButton = document.createElement("button");
+    if (unit === "C") {
+        celsiusButton.classList.add("active");
+    }
     celsiusButton.id = "celsius"
     celsiusButton.textContent = "C";
     celsiusButton.addEventListener("click", () => {
         if (unit === "C") return;
+        removeActiveClass();
         renderWeather(dataToDisplay, "C")
-    }) 
+    })
 
     cardButtonsContainer.append(farenheitButton, celsiusButton);
 
@@ -96,7 +112,7 @@ export function renderWeather(dataToDisplay, unit = "C") {
 
     // create card text
     const cardText = document.createElement("p");
-    cardText.textContent = unit === "F" ? Math.round(dataToDisplay.days[0].tempmax) + `°${unit}` : Math.round((dataToDisplay.days[0].tempmax *9) / 5 + 32) + `°${unit}`
+    cardText.textContent = unit === "F" ? Math.round(dataToDisplay.days[0].tempmax) + `°${unit}` : Math.round((dataToDisplay.days[0].tempmax * 9) / 5 + 32) + `°${unit}`
 
     cardBottom.append(cardImg, cardText);
 
