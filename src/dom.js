@@ -2,6 +2,15 @@
 export function renderWeather(dataToDisplay, unit = "C") {
     console.log(dataToDisplay)
 
+    const images = {
+        "sun": "../src/assets/images/sun.png",
+        "clear": "../src/assets/images/sun.png",
+        "cloud": "../src/assets/images/cloudy-day.png",
+        "rain": "../src/assets/images/rain.png",
+        "snow": "../src/assets/images/snowflake.png",
+        "thunder": "../src/assets/images/storm.png"
+    }
+
     function removeActiveClass() {
         const toggleButtons = document.querySelectorAll(".temperature-buttons button");
         toggleButtons.forEach((button) => {
@@ -51,8 +60,16 @@ export function renderWeather(dataToDisplay, unit = "C") {
         forecastGroup.classList.add("forecast-group");
 
         const img = document.createElement("img");
-        img.src = "Test";
-        img.alt = `${dataToDisplay.days[i].description}`;
+        const description =  `${dataToDisplay.days[i].description}`;
+        console.log(images)
+        
+        Object.entries(images).forEach(([key, src]) => {
+            if (description.toLowerCase().includes(`${key}`)) {
+                console.log(src)
+                img.src = `${src}`
+            }
+        })
+        img.alt = description;
 
         const rawTemp = dataToDisplay.days[i].tempmax;
         const temperature = unit === "C" ? Math.round((rawTemp * 9) / 5 + 32) : Math.round(rawTemp);
@@ -107,8 +124,14 @@ export function renderWeather(dataToDisplay, unit = "C") {
 
     // create images
     const cardImg = document.createElement("img")
-    cardImg.src = "test";
-    cardImg.alt = "Test";
+    
+    Object.entries(images).forEach(([key, src]) => {
+            if (dataToDisplay.days[0].description.toLowerCase().includes(`${key}`)) {
+                console.log(src)
+                cardImg.src = `${src}`;
+            }
+        })
+    cardImg.alt = `${dataToDisplay.days[0].description}`;
 
     // create card text
     const cardText = document.createElement("p");
