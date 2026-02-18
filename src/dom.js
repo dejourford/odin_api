@@ -144,4 +144,8 @@ export function renderWeather(dataToDisplay, unit = "C") {
     weatherContainer.append(card);
 }
 
-
+// function to show loader during api fetch
+export function showLoader() {
+  const container = document.querySelector(".weather-container");
+  container.innerHTML = "<div class='loader'></div>";
+}

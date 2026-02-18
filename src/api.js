@@ -4,7 +4,6 @@ export async function fetchWeather(location) {
     try {
         const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/?key=${api_key}`);
 
-
         if (!response.ok) {
             throw new Error("Location not found")
         }

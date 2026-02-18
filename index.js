@@ -1,5 +1,6 @@
 import { fetchWeather } from "./src/api.js";
 import { renderWeather } from "./src/dom.js";
+import { showLoader } from "./src/dom.js";
 
 // listener for form
 const form = document.querySelector("form");
@@ -12,6 +13,12 @@ form.addEventListener("submit", async (e) => {
     const query = formData.get("search");
     console.log(query)
 
-    const dataToDisplay = await fetchWeather(query)
-    renderWeather(dataToDisplay, "F");
+    try {
+        showLoader();
+        const dataToDisplay = await fetchWeather(query)
+        renderWeather(dataToDisplay, "F");
+    }
+    catch (error) {
+        console.error(error)
+    }
 })
